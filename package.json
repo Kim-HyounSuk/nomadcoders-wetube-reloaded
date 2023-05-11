@@ -8,7 +8,7 @@
     "url": "git+https://github.com/Kim-HyounSuk/nomadcoders-wetube-reloaded.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js"
+    "dev": "nodemon --exec babel-node src/init.js"
   },
   "author": "Hyounsuk Kim<kkoor586@naver.com>",
   "license": "MIT",
