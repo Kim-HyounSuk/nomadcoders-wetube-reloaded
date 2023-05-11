@@ -50,5 +50,15 @@ export const getUpload = (req, res) => {
 };
 
 export const postUpload = (req, res) => {
+  const { title } = req.body;
+  const newVideo = {
+    title,
+    rating: 5,
+    comment: 2,
+    createdAt: "2 minutes ago",
+    views: 59,
+    id: videos.length + 1,
+  };
+  videos.push(newVideo);
   return res.redirect("/");
 };
