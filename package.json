@@ -8,7 +8,11 @@
     "url": "git+https://github.com/Kim-HyounSuk/nomadcoders-wetube-reloaded.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/init.js"
+    "start": "node build/init.js",
+    "build:server": "babel src -d build",
+    "build:assets": "webpack --mode=production",
+    "dev:server": "nodemon --exec babel-node src/init.js",
+    "dev:assets": "webpack --mode=development -w"
   },
   "author": "Hyounsuk Kim<kkoor586@naver.com>",
   "license": "MIT",
@@ -27,10 +31,19 @@
     "pug": "^3.0.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.21.5",
     "@babel/core": "^7.21.5",
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.21.5",
     "babel": "^6.23.0",
-    "nodemon": "^2.0.22"
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.7.4",
+    "mini-css-extract-plugin": "^2.7.6",
+    "nodemon": "^2.0.22",
+    "sass": "^1.62.1",
+    "sass-loader": "^13.3.0",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.84.1",
+    "webpack-cli": "^5.1.1"
   }
 }
