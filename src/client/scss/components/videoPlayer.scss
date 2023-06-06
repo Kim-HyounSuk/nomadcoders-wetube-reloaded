@@ -1,0 +1,6 @@
+#videoController {
+  display: none;
+  &.active {
+    display: flex;
+  }
+}

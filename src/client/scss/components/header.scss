@@ -1,0 +1,19 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 25px;
+  .header__logo {
+    padding: 10px 25px;
+    display: flex;
+    div {
+      padding: 5px;
+      font-weight: 900;
+      &:nth-of-type(2) {
+        background-color: $orange;
+        color: #0f0f0f;
+        border-radius: 5px;
+      }
+    }
+  }
+}

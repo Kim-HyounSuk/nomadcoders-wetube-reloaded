@@ -1,0 +1,18 @@
+nav
+  ul
+    if loggedIn
+      li
+        a(href='/user/logout') Logout
+      li
+        a(href=`/user/${loggedInUser._id}`) My Profile
+      li
+        a(href='/user/edit') Edit Profile
+      li
+        a(href='/videos/upload') Upload Video
+    else
+      li
+        a(href='/join') Join
+      li
+        a(href='/login') Login
+    li
+      a(href='/search') Search

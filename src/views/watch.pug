@@ -2,8 +2,30 @@ extends layout.pug
 
 block content
   div
+    video(src='/' + video.fileUrl, controls)
+    div#videoController
+      i#playPauseBtn.fas.fa-play
+      i#volume.fas.fa-volume-up
+      input#volumeRange(type='range', step='0.1', value='0.5', min='0', max='1')
+      div
+        span#currentTime 00:00:00
+        span /
+        span#totalTime 00:00:00
+      div
+        input#timeLine(type='range', step='1', value='0', min='0')
+      div
+        i#fullScreen.fas.fa-expand
+  div
     p=video.description
-    small=video.createAt 
-  a(href=`/videos/${video.id}/edit`) Edit Video &rarr;
-  br
-  a(href=`/videos/${video.id}/delete`) Delete Video &rarr;
+    small=video.createdAt
+  div
+    small Uploaded by 
+      a(href=`/user/${video.owner._id}`) #{video.owner.name}
+  if String(video.owner._id) === loggedInUser._id
+    a(href=`/videos/${video.id}/edit`) Edit Video &rarr;
+    br
+    if errMsg
+      small #{errMsg}
+    a(href=`/videos/${video.id}/delete`) Delete Video &rarr;
+block scripts
+  script(src="/static/js/videoPlayer.js")

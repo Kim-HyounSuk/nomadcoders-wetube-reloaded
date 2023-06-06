@@ -3,7 +3,9 @@ extends layout.pug
 block content
   if(errMsg)
     span=errMsg
-  form(method='POST', action='/videos/upload')
+  form(method='POST', enctype='multipart/form-data')
+    label(for='video') Video File
+    input(id='video', name='video', type='file', accept='video/*', required)
     input(name='title', placeholder='Title', type='text', required, maxlength=80)
     input(name='description', placeholder='Description', type='text', required, minlength=20)
     input(name='hashtags', placeholder='Hashtags', type='text', required)

@@ -11,7 +11,7 @@
     "start": "node build/init.js",
     "build:server": "babel src -d build",
     "build:assets": "webpack --mode=production",
-    "dev:server": "nodemon --exec babel-node src/init.js",
+    "dev:server": "nodemon",
     "dev:assets": "webpack --mode=development -w"
   },
   "author": "Hyounsuk Kim<kkoor586@naver.com>",
@@ -28,6 +28,7 @@
     "express-session": "^1.17.3",
     "mongoose": "^7.1.1",
     "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
     "node-fetch": "^2.6.11",
     "pug": "^3.0.2"
   },

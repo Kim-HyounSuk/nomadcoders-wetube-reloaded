@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
+import Video from "../models/Video.js";
 
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
@@ -28,14 +29,13 @@ export const postJoin = async (req, res) => {
     await User.create({
       name,
       username,
-      avatarUrl,
       email,
       password,
       location,
     });
-
     return res.redirect("/login");
   } catch (err) {
+    console.log(err);
     return res.status(400).render("join", {
       pageTitle,
       errMsg: err._message,
@@ -48,16 +48,15 @@ export const getLogin = (req, res) => {
   });
 };
 export const postLogin = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   const pageTitle = "Login";
-  const user = await User.findOne({ username, socialOnly: false });
+  const user = await User.findOne({ email, socialOnly: false });
   if (!user) {
     return res.status(400).render("login", {
       pageTitle,
-      errMsg: "An account with this username does not exists.",
+      errMsg: "가입된 계정이 존재하지 않습니다. Email 정보를 확인해주세요.",
     });
   }
-
   const pass = await bcrypt.compare(password, user.password);
   if (!pass) {
     return res.status(400).render("login", {
@@ -142,6 +141,74 @@ export const logout = (req, res) => {
   req.session.destroy();
   return res.redirect("/");
 };
-export const see = (req, res) => res.send("See User");
+export const see = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id).populate("videos");
+  if (!user) {
+    return res.status(404).render("404", { pageTitle: "User not found." });
+  }
+  return res.render("user/profile", {
+    pageTitle: `${user.name}'s Profile`,
+    user,
+  });
+};
+
+export const getEdit = (req, res) => {
+  return res.render("edit-profile", { pageTitle: "Edit Profile" });
+};
+export const postEdit = async (req, res) => {
+  const { _id, avatarUrl } = req.session.user;
+  const { name, email, username, location } = req.body;
+  const { file } = req;
+
+  const exists = await User.exists({ $or: [{ username, email }] });
+  if (!exists) {
+    return res.status(400).render("edit-profile", {
+      pageTitle: "Edit Profile",
+      errMsg: "This username/email is already taken.",
+    });
+  }
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      avatarUrl: file ? file.path : avatarUrl,
+      name,
+      email,
+      username,
+      location,
+    },
+    { new: true }
+  );
+  req.session.user = updatedUser;
+  return res.redirect("/user/edit");
+};
+
+export const getChangePassword = (req, res) => {
+  if (req.session.user.socialOnly === true) {
+    return res.redirect("/");
+  }
+  return res.render("user/change-password", { pageTitle: "Change Password" });
+};
+export const postChangePassword = async (req, res) => {
+  const { _id } = req.session.user;
+  const { currentPassword, newPassword, newPasswordConfirm } = req.body;
+  const user = await User.findById(_id);
+  const ok = await bcrypt.compare(currentPassword, user.password);
+  if (!ok) {
+    return res.status(400).render("user/change-password", {
+      pageTitle: "Change Password",
+      errMsg: "기존 비밀번호가 일치하지 않습니다.",
+    });
+  }
+  if (newPassword !== newPasswordConfirm) {
+    return res.status(400).render("user/change-password", {
+      pageTitle: "Change Password",
+      errMsg: "새 비밀번호가 일치하지 않습니다.",
+    });
+  }
+  user.password = newPassword;
+  await user.save();
+  return res.redirect("/user/logout");
+};
 export const edit = (req, res) => res.send("Edit User");
 export const remove = (req, res) => res.send("Remove User");
