@@ -7,6 +7,7 @@ export const home = async (req, res) => {
 
   return res.render("home", { pageTitle: "Home", videos });
 };
+
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner");
@@ -15,6 +16,7 @@ export const watch = async (req, res) => {
   }
   return res.render("watch", { pageTitle: video.title, video });
 };
+
 export const getEdit = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
@@ -26,6 +28,7 @@ export const getEdit = async (req, res) => {
   }
   return res.render("edit", { pageTitle: `Edit ${video.title}`, video });
 };
+
 export const postEdit = async (req, res) => {
   const { id } = req.params;
   const { title, description, hashtags } = req.body;
@@ -86,13 +89,11 @@ export const deleteVideo = async (req, res) => {
   fs.unlink(video.fileUrl, (err) => {
     if (err) {
       console.log(err);
-      return res
-        .status(500)
-        .render("watch", {
-          pageTitle: video.title,
-          video,
-          errMsg: "동영상 삭제 중 오류가 발생했습니다.",
-        });
+      return res.status(500).render("watch", {
+        pageTitle: video.title,
+        video,
+        errMsg: "동영상 삭제 중 오류가 발생했습니다.",
+      });
     }
   });
   await Video.findByIdAndDelete(id);
@@ -112,4 +113,15 @@ export const search = async (req, res) => {
   }
 
   return res.render("search", { pageTitle: "Search", videos });
+};
+
+export const registerView = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  video.meta.views += 1;
+  await video.save();
+  return res.sendStatus(200);
 };

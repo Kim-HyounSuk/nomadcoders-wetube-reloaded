@@ -1,7 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
-import Video from "../models/Video.js";
 
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
@@ -152,7 +151,6 @@ export const see = async (req, res) => {
     user,
   });
 };
-
 export const getEdit = (req, res) => {
   return res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
@@ -160,7 +158,6 @@ export const postEdit = async (req, res) => {
   const { _id, avatarUrl } = req.session.user;
   const { name, email, username, location } = req.body;
   const { file } = req;
-
   const exists = await User.exists({ $or: [{ username, email }] });
   if (!exists) {
     return res.status(400).render("edit-profile", {
@@ -180,9 +177,8 @@ export const postEdit = async (req, res) => {
     { new: true }
   );
   req.session.user = updatedUser;
-  return res.redirect("/user/edit");
+  return res.redirect("/users/edit");
 };
-
 export const getChangePassword = (req, res) => {
   if (req.session.user.socialOnly === true) {
     return res.redirect("/");
@@ -208,7 +204,6 @@ export const postChangePassword = async (req, res) => {
   }
   user.password = newPassword;
   await user.save();
-  return res.redirect("/user/logout");
+  return res.redirect("/users/logout");
 };
-export const edit = (req, res) => res.send("Edit User");
 export const remove = (req, res) => res.send("Remove User");

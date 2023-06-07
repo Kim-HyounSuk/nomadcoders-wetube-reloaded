@@ -1,6 +1,33 @@
-#videoController {
-  display: none;
-  &.active {
+#videoContainer {
+  position: relative;
+  width: 100%;
+  video {
+    width: 100%;
+  }
+  #videoController {
     display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    align-items: center;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 10px;
+    width: 95%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr auto;
+    gap: 10px;
+    justify-content: space-between;
+    background-color: #0f1117;
+    padding: 10px;
+    left: 0;
+    box-sizing: border-box;
+    &.active {
+      opacity: 1;
+    }
   }
 }
