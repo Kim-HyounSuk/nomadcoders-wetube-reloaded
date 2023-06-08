@@ -28,6 +28,12 @@ App.use(
   })
 );
 
+App.use(function (req, res, next) {
+  res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+  res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+});
+
 App.use(localsMiddleware);
 App.use("/uploads", express.static("uploads"));
 App.use("/static", express.static("assets"));
