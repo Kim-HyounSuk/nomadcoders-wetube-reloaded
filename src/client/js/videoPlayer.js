@@ -129,6 +129,5 @@ video.addEventListener("timeupdate", handleTimeUpdate);
 video.addEventListener("ended", handleEnded);
 $timeLine.addEventListener("input", handleTimeLineChange);
 $fullScreen.addEventListener("click", handleFullScreen);
-document.addEventListener("keyup", handleKey);
 $videoContainer.addEventListener("mousemove", handleMouseMove);
 $videoContainer.addEventListener("mouseleave", handleMouseLeave);

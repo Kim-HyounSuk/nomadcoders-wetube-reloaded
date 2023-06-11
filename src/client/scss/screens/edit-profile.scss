@@ -1,0 +1,39 @@
+#edit-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  gap: 10px;
+  width: 50%;
+  & > input {
+    color: $font-color-lightmode;
+    background-color: $font-color-darkmode;
+    width: 100%;
+    padding: 10px 0;
+  }
+  & > input:nth-of-type(6) {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    color: $font-color-darkmode;
+    background-color: $orange;
+    cursor: pointer;
+  }
+  & > input:nth-of-type(6):hover {
+    background-color: #ff681f;
+  }
+  a {
+    width: 100%;
+    padding: 12.5px 0;
+    border-radius: 10px;
+    color: $font-color-darkmode;
+    background-color: skyblue;
+    text-align: center;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  a:hover {
+    background-color: aqua;
+  }
+}

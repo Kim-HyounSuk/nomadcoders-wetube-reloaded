@@ -7,7 +7,7 @@
   #videoController {
     display: flex;
     justify-content: space-between;
-    padding: 5px;
+    padding: 5px 15px;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
     align-items: center;
@@ -19,13 +19,23 @@
     right: 0;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr auto;
-    gap: 10px;
+    grid-template-columns: auto auto 4fr auto;
+    gap: 15px;
     justify-content: space-between;
-    background-color: #0f1117;
+    background-color: rgba(15, 17, 23, 0.5);
     padding: 10px;
     left: 0;
     box-sizing: border-box;
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    div:nth-of-type(3) {
+      input {
+        width: 100%;
+      }
+    }
     &.active {
       opacity: 1;
     }

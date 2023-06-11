@@ -1,13 +1,16 @@
-mixin video(data)
-  div
-    h4
-      a(href=`/videos/${data.id}`)=data.title
-    span=data.thumbUrl
-    div(style=`background-image:url(/${data.thumbUrl});width:100px;height:80px;background-size:cover;background-position:center;`)
-    p=data.description
-    ul
-      each hashtag in data.hashtags
-        li=hashtag
-    small=data.createdAt
-    small=data.meta.views
-    hr
+mixin video(video)
+  a(href=`/videos/${video.id}`)
+    div#video__container
+      div.video__thumbnail(style=`background-image:url(/${video.thumbUrl})`)
+      div.video__info
+        div
+          div.video__owner__avatar(style=`background-image:url(/${video.owner.avatarUrl});`)
+        div
+          h4=video.title
+          span.video__views 조회수 #{video.meta.views}회
+          - const date = new Date(video.createdAt);
+          - const year = date.getFullYear();
+          - const month = String(date.getMonth() + 1).padStart(2, "0");
+          - const day = String(date.getDate()).padStart(2, "0");
+          - const formattedDate = `${year}-${month}-${day}`;
+          span.video__createdAt 작성일 #{formattedDate}

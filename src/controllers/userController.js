@@ -49,7 +49,9 @@ export const getLogin = (req, res) => {
 export const postLogin = async (req, res) => {
   const { email, password } = req.body;
   const pageTitle = "Login";
-  const user = await User.findOne({ email, socialOnly: false });
+  const user = await User.findOne({ email, socialOnly: false }).populate(
+    "videos"
+  );
   if (!user) {
     return res.status(400).render("login", {
       pageTitle,
@@ -168,7 +170,7 @@ export const postEdit = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: file ? file.path : avatarUrl,
+      avatarUrl: file ? User.changePathFormula(file.path) : avatarUrl,
       name,
       email,
       username,

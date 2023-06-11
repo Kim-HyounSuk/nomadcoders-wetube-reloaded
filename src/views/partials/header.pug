@@ -2,7 +2,17 @@ header
   a(href='/').header__logo
     div Kid's
     div Hub
-  form(mothod='GET')
+  form(mothod='GET' action='/search')
     input(name='keyword', placeholder='Search by title', type='text')
     button(type='submit')
       i.fas.fa-search
+  if loggedIn
+    a(href='/users/logout')
+      div.header__profile
+        div.header__avatar(style=`background-image:url(/${loggedInUser.avatarUrl});`)
+        span #{loggedInUser.username}
+  else
+    a(href='/login')
+      div.header__login
+        i.fas.fa-user-circle
+        span 로그인

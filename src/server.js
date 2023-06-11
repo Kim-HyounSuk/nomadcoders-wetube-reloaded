@@ -15,14 +15,14 @@ App.set("view engine", "pug");
 App.set("views", process.cwd() + "/src/views");
 App.use(logger);
 App.use(express.urlencoded({ extended: true }));
-
+App.use(express.json());
 App.use(
   session({
     secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 600000,
+      maxAge: 3600000,
     },
     store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
   })

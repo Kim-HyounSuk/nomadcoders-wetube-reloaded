@@ -1,0 +1,26 @@
+#editvideo-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  gap: 10px;
+  width: 50%;
+  & > input {
+    color: $font-color-lightmode;
+    background-color: $font-color-darkmode;
+    width: 100%;
+    padding: 10px 0;
+  }
+  & > input:nth-of-type(4) {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    color: $font-color-darkmode;
+    background-color: $orange;
+    cursor: pointer;
+  }
+  & > input:nth-of-type(4):hover {
+    background-color: #ff681f;
+  }
+}

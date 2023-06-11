@@ -1,0 +1,12 @@
+mixin videoComment(comment)
+  li.video__comment(data-id=comment.id)
+    div
+      a(href=`/users/${comment.owner._id}`)
+        div.video__comment__avatar(style=`background-image:url(/${comment.owner.avatarUrl});`)
+    div
+      a(href=`/users/${comment.owner._id}`)
+        span #{comment.owner.username}
+      p #{comment.text}
+    if String(loggedInUser._id) === String(comment.owner._id)
+      div
+        span#delete__comment 삭제

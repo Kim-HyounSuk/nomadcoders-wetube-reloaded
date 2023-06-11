@@ -1,19 +1,21 @@
 extends layout.pug
 
 block content
-  div
-    video#preview
-    button#actionBtn Start Recording
-  if errMsg
-    span=errMsg
-  form(method='POST', enctype='multipart/form-data')
-    label(for='video') Video File
-    input(id='video', name='video', type='file', accept='video/*', required)
-    label(for='video') Thumnail File
-    input(id='thumb', name='thumb', type='file', accept='image/*', required)
-    input(name='title', placeholder='Title', type='text', required, maxlength=80)
-    input(name='description', placeholder='Description', type='text', required, minlength=2)
-    input(name='hashtags', placeholder='Hashtags', type='text', required)
-    input(type='submit', value='Upload Video')
+  div.container
+    h1.pageTitle #{pageTitle}
+    div#recording__video
+      video#preview
+      button#actionBtn 녹화시작
+    if errMsg
+      span=errMsg
+    form#upload-form(method='POST', enctype='multipart/form-data')
+      label(for='video') Video File
+      input(id='video', name='video', type='file', accept='video/*', required)
+      label(for='video') Thumnail File
+      input(id='thumb', name='thumb', type='file', accept='image/*', required)
+      input(name='title', placeholder='Title', type='text', required, maxlength=80)
+      input(name='description', placeholder='Description', type='text', required, minlength=2)
+      input(name='hashtags', placeholder='Hashtags', type='text', required)
+      input(type='submit', value='비디오 업로드')
 block scripts
   script(src='/static/js/recorder.js')

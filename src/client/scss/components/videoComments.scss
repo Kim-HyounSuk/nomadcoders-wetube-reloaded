@@ -1,0 +1,45 @@
+.video__comments {
+  padding: 15px 0;
+  ul {
+    .video__comment {
+      display: flex;
+      padding: 10px;
+      div {
+        padding: 5px;
+      }
+      div:nth-of-type(1) {
+        display: flex;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-size: cover;
+        background-position: center;
+      }
+      div:nth-of-type(2) {
+        width: 100%;
+        span {
+          padding: 10px;
+          font-weight: 500;
+        }
+        p {
+          padding: 10px;
+          font-weight: 400;
+        }
+      }
+      div:nth-of-type(3) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 35px;
+        span {
+          font-size: 12px;
+          cursor: pointer;
+        }
+        span:hover {
+          color: red;
+        }
+      }
+    }
+  }
+}

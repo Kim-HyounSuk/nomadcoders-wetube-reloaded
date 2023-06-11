@@ -1,15 +1,17 @@
 extends layout.pug
 
 block content
-  if errMsg
-    span=errMsg
-  form(method='POST')
-    input(name='email', placeholder='Email', type='email', required)
-    input(name='password', placeholder='Password', type='password', required)
-    input(type='submit', value='Login')
-    br
-    a(href='/users/github/start') Continue with GitHub &rarr;
-  hr
-  div
-    span Don't have an account?
-    a(href='/join') Create one now &rarr;
+  div.container
+    h1.pageTitle #{pageTitle}
+    form#login-form(method='POST')
+      if errMsg
+        span=errMsg
+      input(name='email', placeholder='이메일', type='email', required)
+      input(name='password', placeholder='비밀번호', type='password', required)
+      input(type='submit', value='로그인')
+      a(href='/users/github/start') Login with Github 
+        i.fab.fa-github
+    div.liner
+    div.login__create__account
+      span 계정이 없으신가요? 
+      a(href='/join') 신규가입 &rarr;

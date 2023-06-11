@@ -2,7 +2,9 @@ extends ../layout.pug
 include ../mixins/video.pug
 
 block content
-  each video in user.videos
-    +video(video)
-  else
-    li Sorry nothing found.
+  h2 업로드한 비디오
+  div.videos__container
+    each item in user.videos
+      +video(item)
+    else
+      span 업로드된 비디오가 없습니다.

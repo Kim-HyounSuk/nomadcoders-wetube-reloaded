@@ -16,4 +16,56 @@ header {
       }
     }
   }
+  form {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 1px solid $font-color-darkmode;
+    input {
+      width: 100%;
+    }
+    button {
+      position: absolute;
+      right: 15px;
+      top: 30%;
+    }
+  }
+  .header__login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 90px;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid $font-color-darkmode;
+  }
+  .header__login:hover {
+    color: skyblue;
+    border: 1px solid skyblue;
+  }
+  .header__profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 90px;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid $font-color-darkmode;
+    .header__avatar {
+      width: 15px;
+      height: 15px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+    }
+  }
+  .header__profile:hover {
+    color: $orange;
+    border: 1px solid $orange;
+  }
 }

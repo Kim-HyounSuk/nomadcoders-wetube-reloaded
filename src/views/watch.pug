@@ -1,33 +1,59 @@
 extends layout.pug
+include mixins/video-comment.pug
 
 block content
-  div#videoContainer(data-id=video._id)
-    video(src='/' + video.fileUrl)
-    div#videoController
-      div
-        i#playPauseBtn.fas.fa-play
+  div.watchContainer
+    div#videoContainer(data-id=video._id)
+      video(src='/' + video.fileUrl)
+      div#videoController
         div
-          span#currentTime 00:00:00
-          span /
-          span#totalTime 00:00:00
+          i#playPauseBtn.fas.fa-play
+        div
+          i#volume.fas.fa-volume-up
+          input#volumeRange(type='range', step='0.1', value='0.5', min='0', max='1')
+        div
+          div
+            span#currentTime 00:00
+            span /
+            span#totalTime 00:00
+          input#timeLine(type='range', step='1', value='0', min='0')
+        div
+          i#fullScreen.fas.fa-expand
+    if String(video.owner._id) === loggedInUser._id
+      div.videoBtn
+        a(href=`/videos/${video.id}/edit`) 수정
+        span  / 
+        a(href=`/videos/${video.id}/delete`) 삭제
+    div.videoInfo
+      h2=video.title
+      p=video.description
+      - const date = new Date(video.createdAt);
+      - const year = date.getFullYear();
+      - const month = String(date.getMonth() + 1).padStart(2, "0");
+      - const day = String(date.getDate()).padStart(2, "0");
+      - const formattedDate = `${year}-${month}-${day}`;
       div
-        i#volume.fas.fa-volume-up
-        input#volumeRange(type='range', step='0.1', value='0.5', min='0', max='1')
-      div
-        input#timeLine(type='range', step='1', value='0', min='0')
-      div
-        i#fullScreen.fas.fa-expand
-  div
-    p=video.description
-    small=video.createdAt
-  div
-    small Uploaded by 
-      a(href=`/user/${video.owner._id}`) #{video.owner.name}
-  if String(video.owner._id) === loggedInUser._id
-    a(href=`/videos/${video.id}/edit`) Edit Video &rarr;
-    br
-    if errMsg
-      small #{errMsg}
-    a(href=`/videos/${video.id}/delete`) Delete Video &rarr;
+        span 작성일 #{formattedDate}
+        br
+        span #{video.hashtags}
+      div.video__owner
+        small Uploaded by 
+          img(src='/' + video.owner.avatarUrl, width='40', height='40')
+          a(href=`/users/${video.owner._id}`) #{video.owner.name}
+    if loggedIn
+      div.video__add-comments
+        form.video__comment-form#commentForm
+          input(placeholder='댓글 추가...')
+          button
+            i.fas.fa-chevron-circle-right
+    div.video__comments
+      ul
+        each comment in video.comments.reverse()
+          +videoComment(comment)
+        else
+          li 영상에 댓글로 반응해주세요.
+        
 block scripts
   script(src="/static/js/videoPlayer.js")
+  if loggedIn
+    script(src="/static/js/commentSection.js")
