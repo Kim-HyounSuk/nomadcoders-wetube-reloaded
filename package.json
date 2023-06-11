@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node build/init.js",
+    "build": "webpack --mode=production && webpack --mode=production",
     "build:server": "babel src -d build",
     "build:assets": "webpack --mode=production",
     "dev:server": "nodemon",
