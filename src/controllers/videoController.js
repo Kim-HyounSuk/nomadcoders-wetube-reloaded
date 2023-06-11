@@ -52,7 +52,7 @@ export const postEdit = async (req, res) => {
   if (String(video.owner) !== String(_id)) {
     return res.status(403).redirect("/");
   }
-  await Video.findByIdAndUpdate(id, {
+  await Video.findByIdAndUpdate(_id, {
     title,
     description,
     hashtags: Video.formatHashtags(hashtags),

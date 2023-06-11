@@ -160,13 +160,13 @@ export const postEdit = async (req, res) => {
   const { _id, avatarUrl } = req.session.user;
   const { name, username, location } = req.body;
   const { file } = req;
-  const exists = await User.exists({ username });
-  if (exists) {
-    return res.status(400).render("edit-profile", {
-      pageTitle: "Edit Profile",
-      errMsg: "This username is already taken.",
-    });
-  }
+  // const exists = await User.exists({ username });
+  // if (exists) {
+  //   return res.status(400).render("edit-profile", {
+  //     pageTitle: "Edit Profile",
+  //     errMsg: "This username is already taken.",
+  //   });
+  // }
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
