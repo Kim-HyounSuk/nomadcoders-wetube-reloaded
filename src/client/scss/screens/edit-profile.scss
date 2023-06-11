@@ -12,7 +12,7 @@
     width: 100%;
     padding: 10px 0;
   }
-  & > input:nth-of-type(6) {
+  & > input:nth-of-type(5) {
     width: 100%;
     padding: 10px;
     border-radius: 10px;
@@ -20,7 +20,7 @@
     background-color: $orange;
     cursor: pointer;
   }
-  & > input:nth-of-type(6):hover {
+  & > input:nth-of-type(5):hover {
     background-color: #ff681f;
   }
   a {

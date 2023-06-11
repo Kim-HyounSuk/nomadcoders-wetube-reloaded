@@ -158,13 +158,13 @@ export const getEdit = (req, res) => {
 };
 export const postEdit = async (req, res) => {
   const { _id, avatarUrl } = req.session.user;
-  const { name, email, username, location } = req.body;
+  const { name, username, location } = req.body;
   const { file } = req;
-  const exists = await User.exists({ $or: [{ username, email }] });
-  if (!exists) {
+  const exists = await User.exists({ username });
+  if (exists) {
     return res.status(400).render("edit-profile", {
       pageTitle: "Edit Profile",
-      errMsg: "This username/email is already taken.",
+      errMsg: "This username is already taken.",
     });
   }
   const updatedUser = await User.findByIdAndUpdate(
@@ -172,7 +172,6 @@ export const postEdit = async (req, res) => {
     {
       avatarUrl: file ? User.changePathFormula(file.path) : avatarUrl,
       name,
-      email,
       username,
       location,
     },
