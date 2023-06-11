@@ -45,18 +45,21 @@ export const postEdit = async (req, res) => {
   } = req.session;
   const { id } = req.params;
   const { title, description, hashtags } = req.body;
-  const video = await Video.exists({ _id: id });
+  const video = await Video.findById({ _id: id });
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
+  console.log(video.owner, _id);
   if (String(video.owner) !== String(_id)) {
     return res.status(403).redirect("/");
   }
-  await Video.findByIdAndUpdate(_id, {
+  ``;
+  await Video.findByIdAndUpdate(id, {
     title,
     description,
     hashtags: Video.formatHashtags(hashtags),
   });
+  console.log("ok");
   return res.redirect(`/videos/${id}`);
 };
 
